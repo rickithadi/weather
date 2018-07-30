@@ -16,7 +16,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { Http, Response, Headers, RequestOptions, URLSearchParams }
     from '@angular/http';
 
@@ -44,10 +44,10 @@ export class ChartjsComponent implements OnInit {
     currentDate: any;
     public apiHost: string = '../../assets/city.list.json'
     customSelected: string;
-    selectedValue: string;
+    selectedValue: any;
     selectedOption: any;
     countryList: any;
-    id = 1880252;
+    id: number;
     data: any = [10, 100];
     set = {
         name: 'Line 4',
@@ -68,10 +68,8 @@ export class ChartjsComponent implements OnInit {
             'Accept': 'q=0.8;application/json;q=0.9'
         });
         this.Hoptions = new RequestOptions({ headers: this.headers });
-        this.model = {
-            name: '',
-            id: this.id
-        };
+        this.id = 1880251;
+        this.selectedValue = 'Singapore';
         this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
             this.colors = config.variables;
@@ -269,6 +267,9 @@ export class ChartjsComponent implements OnInit {
     }
     onSelect(event: TypeaheadMatch): void {
         this.selectedOption = event.item;
+        this.id = this.selectedOption.id;
+        this.forecastGraph();
+        this.todayGraph();
 
     }
 

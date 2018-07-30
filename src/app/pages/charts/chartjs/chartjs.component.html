@@ -1,72 +1,68 @@
 <div class="row">
+    <div class="col-md-8">
+        
+          <nb-card size="small">
+          <nb-card-body>
+          <div class="location">
+          <span>{{currentData.name}}</span>
+          </div>
+          <div class="date">
+          <span>{{currentData.weather[0].main}}, {{currentData.weather[0].description}}</span>
+          </div>
+          <div class="daily-forecast">
+          <div class="info">
+          <div class="temperature">
+          <span>{{currentData.main.temp}}&deg;</span>
+          </div>
 
+          </div>
 
-    <pre class="card card-block card-header mb-3">Model: {{selectedValue | json}}</pre>
-    <pre class="card card-block card-header mb-3">Selected option: {{selectedOption | json}}</pre>
+          <br>
+          <div class="details">
+          <div class="parameter">
+          <span class="parameter-name">max</span>
+          <span class="parameter-value">{{currentData.main.temp_max}}&deg;</span>
+          </div>
+          <div class="parameter">
+          <span class="parameter-name">min</span>
+          <span class="parameter-value">{{currentData.main.temp_min}}&deg;</span>
+          </div>
+          <div class="parameter">
+          <span class="parameter-name">wind</span>
+          <span class="parameter-value">{{currentData.wind.speed}}m/sec</span>
+          </div>
+          <div class="parameter">
+          <span class="parameter-name">humidity</span>
+          <span class="parameter-value">{{currentData.main.humidity}}%</span>
+          </div>
+          </div>
+          </div>
 
-     <input [(ngModel)]="selectedValue"
-           [typeahead]="countryList"
-           typeaheadOptionField="name"
-           (typeaheadOnSelect)="onSelect($event)"
-           class="form-control">
-
-
-    <!-- <div class="col-lg-8">
-         <nb-card size="small">
-         <nb-card-body>
-         <div class="location">
-         <span>{{currentData.name}}</span>
-         </div>
-         <div class="date">
-         <span>{{currentData.weather[0].main}}, {{currentData.weather[0].description}}</span>
-         </div>
-         <div class="daily-forecast">
-         <div class="info">
-         <div class="temperature">
-         <span>{{currentData.main.temp}}&deg;</span>
-         </div>
-
-         </div>
-
-         <br>
-         <div class="details">
-         <div class="parameter">
-         <span class="parameter-name">max</span>
-         <span class="parameter-value">{{currentData.main.temp_max}}&deg;</span>
-         </div>
-         <div class="parameter">
-         <span class="parameter-name">min</span>
-         <span class="parameter-value">{{currentData.main.temp_min}}&deg;</span>
-         </div>
-         <div class="parameter">
-         <span class="parameter-name">wind</span>
-         <span class="parameter-value">{{currentData.wind.speed}}m/sec</span>
-         </div>
-         <div class="parameter">
-         <span class="parameter-name">humidity</span>
-         <span class="parameter-value">{{currentData.main.humidity}}%</span>
-         </div>
-         </div>
-         </div>
-
-         </nb-card-body>
-         </nb-card>
-         </div>
-    -->   <div class="col-lg-4">
+          </nb-card-body>
+          </nb-card>
+          </div>
+      <div class="col-lg-4">
         <nb-card size="small">
             <nb-card-header>search</nb-card-header>
             <nb-card-body>
+                <ng-template #customItemTemplate let-r="item" >
+                    {{r.name}} , {{r.country }}
+                </ng-template>
+                <!-- <pre class="card card-block card-header mb-3">Model: {{selectedValue | json}}</pre>
+                     <pre class="card card-block card-header mb-3">Selected option: {{selectedOption | json}}</pre>
+                -->
+                <input [(ngModel)]="selectedValue"
+                       [typeahead]="countryList"
+                       (typeaheadOnSelect)="onSelect($event)"
+                       typeaheadOptionField="name"
+                       [typeaheadItemTemplate]="customItemTemplate"
+                       class="form-control">
 
-                <div class="input-group">
-                    <input type="text" placeholder="City ID" class="form-control" [(ngModel)]="model.id">
-                </div>
-                <div class="secondary-container">
-                    <button class="btn btn-success btn-semi-round btn-demo" (click)=search()>submit</button>
-                </div>
-            </nb-card-body>
+
+                            </nb-card-body>
         </nb-card>
     </div>
-</div>
+    </div>
 <div iclass="col-lg-12">
   <nb-card size="large">
     <nb-card-header>forecast</nb-card-header>
