@@ -18,7 +18,7 @@
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
     "start": "ng serve",
-    "postinstall":"ng build --aot --prod"
+      "postinstall":"ng build --aot --prod",
     "build": "npm install && ng build --prod",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",
