@@ -1,5 +1,5 @@
 
-import { HttpClient, HttpHeader } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 
 import { Injectable } from '@angular/core';
@@ -24,11 +24,8 @@ export class ChartjsComponent implements OnInit {
     chart2 = [];
     city: any;
     currentData: any;
-    model = {
-        name: 'singapore',
-        id: this.id
-    };
     temp_max: any;
+    model: any;
     temp_min: any;
     temp: any;
     humidity: any;
@@ -38,7 +35,7 @@ export class ChartjsComponent implements OnInit {
     currentDate: any;
 
     id = 1880252;
-    data = [10, 100];
+    data: any = [10, 100];
     set = {
         name: 'Line 4',
         type: 'line',
@@ -46,13 +43,18 @@ export class ChartjsComponent implements OnInit {
     };
 
 
-    data: any;
     options: any;
     themeSubscription: any;
 
     constructor(private _http: HttpClient,
         private theme: NbThemeService) {
+
+        this.model = {
+            name: '',
+            id: this.id
+        };
         this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
+
             this.colors = config.variables;
             this.chartjs = config.variables.chartjs;
         });
@@ -149,19 +151,19 @@ export class ChartjsComponent implements OnInit {
                     datasets: [
                         {
                             type: 'line',
-                            label: 'temperature',
+                            label: 'temperature(celcius)',
                             data: this.temp,
                             borderColor: 'rgb(255, 159, 64)'
                         },
                         {
                             type: 'line',
-                            label: 'wind',
+                            label: 'wind(m/sec)',
                             data: this.wind,
                             // backgroundColor: NbColorHelper.hexToRgbA(this.colors.lit, 0.5),
                             borderColor: 'rgb(54, 162, 235)'
                         },
                         {
-                            label: 'rainfall',
+                            label: 'rainfall(mm)',
                             data: hujan,
                             backgroundColor: NbColorHelper.hexToRgbA(this.colors.danger, 0.3),
                             borderColor: this.colors.danger
@@ -177,7 +179,8 @@ export class ChartjsComponent implements OnInit {
                     scales: {
                         xAxes: [
                             {
-                                display: true
+                                display: true,
+                                time: { unit: 'day' }
                             }
                         ],
 
@@ -192,7 +195,7 @@ export class ChartjsComponent implements OnInit {
                             left: -700,
                             right: -10,
                             top: -10,
-                            bottom: -35
+                            bottom: -5
                         }
                     }
                 }
@@ -212,6 +215,8 @@ export class ChartjsComponent implements OnInit {
     setID(input: number) {
         this.id = input;
         console.log(this.id);
+        this.currentSingapura();
+        this.singapura();
     }
 
     singapura() {
