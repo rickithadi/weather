@@ -4,21 +4,16 @@ import { takeWhile } from 'rxjs/operators/takeWhile';
 
 // TODO: move layouts into the framework
 @Component({
-  selector: 'ngx-one-column-layout',
-  styleUrls: ['./one-column.layout.scss'],
-  template: `
+    selector: 'ngx-one-column-layout',
+    styleUrls: ['./one-column.layout.scss'],
+    template: `
     <nb-layout>
       <nb-layout-header fixed>
         <ngx-header></ngx-header>
       </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
-        <nb-sidebar-header *ngIf="currentTheme !== 'corporate'">
-          <a href="#" class="btn btn-hero-success main-btn">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
-          </a>
-        </nb-sidebar-header>
-        <ng-content select="nb-menu"></ng-content>
+                <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
       <nb-layout-column>
@@ -33,19 +28,19 @@ import { takeWhile } from 'rxjs/operators/takeWhile';
 })
 export class OneColumnLayoutComponent implements OnDestroy {
 
-  private alive = true;
+    private alive = true;
 
-  currentTheme: string;
+    currentTheme: string;
 
-  constructor(protected themeService: NbThemeService) {
-    this.themeService.getJsTheme()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe(theme => {
-        this.currentTheme = theme.name;
-    });
-  }
+    constructor(protected themeService: NbThemeService) {
+        this.themeService.getJsTheme()
+            .pipe(takeWhile(() => this.alive))
+            .subscribe(theme => {
+                this.currentTheme = theme.name;
+            });
+    }
 
-  ngOnDestroy() {
-    this.alive = false;
-  }
+    ngOnDestroy() {
+        this.alive = false;
+    }
 }

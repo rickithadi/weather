@@ -1,50 +1,68 @@
 <div class="row">
-  <div class="col-lg-6">
-    <nb-card>
-      <nb-card-header>Pie</nb-card-header>
+    
+  <div class="col-lg-8">
+    <nb-card size="small">
       <nb-card-body>
-        <ngx-chartjs-pie></ngx-chartjs-pie>
+        <div class="location">
+            <span>{{currentData.name}}</span>
+        </div>
+        <div class="date">
+            <span>{{currentData.weather[0].main}}, {{currentData.weather[0].description}}</span>
+        </div>
+        <div class="daily-forecast">
+          <div class="info">
+            <div class="temperature">
+                <span>{{currentData.main.temp}}&deg;</span>
+            </div>
+
+          </div>
+
+          <br>
+          <div class="details">
+            <div class="parameter">
+              <span class="parameter-name">max</span>
+              <span class="parameter-value">{{currentData.main.temp_max}}&deg;</span>
+            </div>
+            <div class="parameter">
+              <span class="parameter-name">min</span>
+              <span class="parameter-value">{{currentData.main.temp_min}}&deg;</span>
+            </div>
+            <div class="parameter">
+              <span class="parameter-name">wind</span>
+              <span class="parameter-value">{{currentData.wind.speed}}m/sec</span>
+            </div>
+            <div class="parameter">
+              <span class="parameter-name">humidity</span>
+              <span class="parameter-value">{{currentData.main.humidity}}%</span>
+            </div>
+          </div>
+        </div>
+
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-lg-6">
-    <nb-card>
-      <nb-card-header>Bar</nb-card-header>
+  <div class="col-lg-4">
+    <nb-card size="small">
+      <nb-card-header>search</nb-card-header>
       <nb-card-body>
-        <ngx-chartjs-bar></ngx-chartjs-bar>
+
+        <div class="input-group">
+          <input type="text" placeholder="City ID" class="form-control" [(ngModel)]="model.id">
+        </div>
+        <div class="secondary-container">
+          <button class="btn btn-success btn-semi-round btn-demo" (click)=search()>submit</button>
+        </div>
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-lg-6">
-    <nb-card>
-      <nb-card-header>Line</nb-card-header>
-      <nb-card-body>
-        <ngx-chartjs-line></ngx-chartjs-line>
-      </nb-card-body>
-    </nb-card>
-  </div>
-  <div class="col-lg-6">
-    <nb-card>
-      <nb-card-header>Multiple x-axis</nb-card-header>
-      <nb-card-body>
-        <ngx-chartjs-multiple-xaxis></ngx-chartjs-multiple-xaxis>
-      </nb-card-body>
-    </nb-card>
-  </div>
-  <div class="col-lg-6">
-    <nb-card>
-      <nb-card-header>Bar Horizontal</nb-card-header>
-      <nb-card-body>
-        <ngx-chartjs-bar-horizontal></ngx-chartjs-bar-horizontal>
-      </nb-card-body>
-    </nb-card>
-  </div>
-  <div class="col-lg-6">
-    <nb-card>
-      <nb-card-header>Radar</nb-card-header>
-      <nb-card-body>
-        <ngx-chartjs-radar></ngx-chartjs-radar>
-      </nb-card-body>
-    </nb-card>
-  </div>
+</div>
+<div iclass="col-lg-12">
+  <nb-card size="large">
+    <nb-card-header>forecast</nb-card-header>
+    <nb-card-body>
+
+      <canvas id="canvas" width="600" height="400">{{ chart }}</canvas>
+
+    </nb-card-body>
+  </nb-card>
 </div>

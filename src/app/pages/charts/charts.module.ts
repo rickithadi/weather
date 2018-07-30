@@ -11,6 +11,8 @@ import { ChartjsLineComponent } from './chartjs/chartjs-line.component';
 import { ChartjsPieComponent } from './chartjs/chartjs-pie.component';
 import { ChartjsMultipleXaxisComponent } from './chartjs/chartjs-multiple-xaxis.component';
 import { ChartjsBarHorizontalComponent } from './chartjs/chartjs-bar-horizontal.component';
+
+import { HttpClientModule } from '@angular/common/http';
 import { ChartjsRadarComponent } from './chartjs/chartjs-radar.component';
 import { D3BarComponent } from './d3/d3-bar.component';
 import { D3LineComponent } from './d3/d3-line.component';
@@ -27,29 +29,29 @@ import { EchartsBarAnimationComponent } from './echarts/echarts-bar-animation.co
 import { EchartsRadarComponent } from './echarts/echarts-radar.component';
 
 const components = [
-  ChartjsBarComponent,
-  ChartjsLineComponent,
-  ChartjsPieComponent,
-  ChartjsMultipleXaxisComponent,
-  ChartjsBarHorizontalComponent,
-  ChartjsRadarComponent,
-  D3BarComponent,
-  D3LineComponent,
-  D3PieComponent,
-  D3AreaStackComponent,
-  D3PolarComponent,
-  D3AdvancedPieComponent,
-  EchartsLineComponent,
-  EchartsPieComponent,
-  EchartsBarComponent,
-  EchartsMultipleXaxisComponent,
-  EchartsAreaStackComponent,
-  EchartsBarAnimationComponent,
-  EchartsRadarComponent,
+    ChartjsBarComponent,
+    ChartjsLineComponent,
+    ChartjsPieComponent,
+    ChartjsMultipleXaxisComponent,
+    ChartjsBarHorizontalComponent,
+    ChartjsRadarComponent,
+    D3BarComponent,
+    D3LineComponent,
+    D3PieComponent,
+    D3AreaStackComponent,
+    D3PolarComponent,
+    D3AdvancedPieComponent,
+    EchartsLineComponent,
+    EchartsPieComponent,
+    EchartsBarComponent,
+    EchartsMultipleXaxisComponent,
+    EchartsAreaStackComponent,
+    EchartsBarAnimationComponent,
+    EchartsRadarComponent,
 ];
 
 @NgModule({
-  imports: [ThemeModule, ChartsRoutingModule, NgxEchartsModule, NgxChartsModule, ChartModule],
-  declarations: [...routedComponents, ...components],
+    imports: [ThemeModule, ChartsRoutingModule, NgxEchartsModule, NgxChartsModule, ChartModule, HttpClientModule],
+    declarations: [...routedComponents, ...components],
 })
-export class ChartsModule {}
+export class ChartsModule { }
