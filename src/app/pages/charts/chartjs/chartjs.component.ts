@@ -44,6 +44,8 @@ export class ChartjsComponent implements OnInit {
     currentDate: any;
     public apiHost: string = '../../assets/city.list.json'
     customSelected: string;
+    selectedValue: string;
+    selectedOption: any;
     countryList: any;
     id = 1880252;
     data: any = [10, 100];
@@ -66,7 +68,6 @@ export class ChartjsComponent implements OnInit {
             'Accept': 'q=0.8;application/json;q=0.9'
         });
         this.Hoptions = new RequestOptions({ headers: this.headers });
-        this.getAll();
         this.model = {
             name: '',
             id: this.id
@@ -85,15 +86,8 @@ export class ChartjsComponent implements OnInit {
     ngOnInit() {
         this.forecastGraph();
         this.todayGraph();
-        // this.getAll().then((response) => {
-        //     this.countryList = response
-        // })
-        console.log(this.countryList)
-
-
+        this.getAll();
     }
-
-
     todayGraph() {
         this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
             this.colors = config.variables;
@@ -229,9 +223,6 @@ export class ChartjsComponent implements OnInit {
     }
 
     search() {
-        // console.log(this.model.id);
-        // console.log(this.model.name);
-        this.setID(this.model.id);
 
         this.forecastGraph();
         this.todayGraph();
@@ -263,16 +254,21 @@ export class ChartjsComponent implements OnInit {
     public getAll(): Promise<Object> {
         return this._http.get(this.apiHost)
             .toPromise()
-            .then(this.extractData).catch((err) => {
+            .then(response => this.extractData(response)).catch((err) => {
                 console.log(err);
 
             });
 
     }
-    private extractData(res: Response) {
-        console.log(res);
-        let body = res.json();
+    private extractData(res: any) {
+        this.countryList = res;
+        let body = res;
+        console.log(this.countryList);
         return body || {};
+
+    }
+    onSelect(event: TypeaheadMatch): void {
+        this.selectedOption = event.item;
 
     }
 

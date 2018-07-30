@@ -1,5 +1,16 @@
 <div class="row">
-    
+
+
+    <pre class="card card-block card-header mb-3">Model: {{selectedValue | json}}</pre>
+    <pre class="card card-block card-header mb-3">Selected option: {{selectedOption | json}}</pre>
+
+     <input [(ngModel)]="selectedValue"
+           [typeahead]="countryList"
+           typeaheadOptionField="name"
+           (typeaheadOnSelect)="onSelect($event)"
+           class="form-control">
+
+
     <!-- <div class="col-lg-8">
          <nb-card size="small">
          <nb-card-body>

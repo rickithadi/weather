@@ -11,7 +11,7 @@ import { ChartjsLineComponent } from './chartjs/chartjs-line.component';
 import { ChartjsPieComponent } from './chartjs/chartjs-pie.component';
 import { ChartjsMultipleXaxisComponent } from './chartjs/chartjs-multiple-xaxis.component';
 import { ChartjsBarHorizontalComponent } from './chartjs/chartjs-bar-horizontal.component';
-
+import { TypeaheadModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartjsRadarComponent } from './chartjs/chartjs-radar.component';
 import { D3BarComponent } from './d3/d3-bar.component';
@@ -51,7 +51,7 @@ const components = [
 ];
 
 @NgModule({
-    imports: [ThemeModule, ChartsRoutingModule, NgxEchartsModule, NgxChartsModule, ChartModule, HttpClientModule],
+    imports: [ThemeModule, ChartsRoutingModule, NgxEchartsModule, NgxChartsModule, ChartModule, HttpClientModule, TypeaheadModule.forRoot()],
     declarations: [...routedComponents, ...components],
 })
 export class ChartsModule { }
