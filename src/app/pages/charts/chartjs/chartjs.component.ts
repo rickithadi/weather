@@ -1,15 +1,24 @@
 
 import { HttpClient } from '@angular/common/http';
-
-
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { OnInit } from '@angular/core';
 import { Component, OnDestroy, AfterViewInit } from '@angular/core';
 import { NbThemeService, NbColorHelper } from '@nebular/theme';
 import { Chart } from 'chart.js';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
 
-
+import { Http, Response, Headers, RequestOptions, URLSearchParams }
+    from '@angular/http';
 
 @Component({
     selector: 'ngx-chartjs',
@@ -33,7 +42,9 @@ export class ChartjsComponent implements OnInit {
     windKnots: any;
     rain = [];
     currentDate: any;
-
+    public apiHost: string = '../../assets/city.list.json'
+    customSelected: string;
+    countryList: any;
     id = 1880252;
     data: any = [10, 100];
     set = {
@@ -42,13 +53,20 @@ export class ChartjsComponent implements OnInit {
         data: [5, 12, 16, 20]
     };
 
+    headers: Headers;
+    Hoptions: RequestOptions;
 
     options: any;
     themeSubscription: any;
 
     constructor(private _http: HttpClient,
         private theme: NbThemeService) {
-
+        this.headers = new Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'q=0.8;application/json;q=0.9'
+        });
+        this.Hoptions = new RequestOptions({ headers: this.headers });
+        this.getAll();
         this.model = {
             name: '',
             id: this.id
@@ -67,7 +85,14 @@ export class ChartjsComponent implements OnInit {
     ngOnInit() {
         this.forecastGraph();
         this.todayGraph();
+        // this.getAll().then((response) => {
+        //     this.countryList = response
+        // })
+        console.log(this.countryList)
+
+
     }
+
 
     todayGraph() {
         this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
@@ -76,7 +101,7 @@ export class ChartjsComponent implements OnInit {
         });
         this.currentSingapura().subscribe(res => {
             this.currentData = res.valueOf();
-            console.log(this.currentData);
+            // console.log(this.currentData);
         });
     }
 
@@ -103,7 +128,7 @@ export class ChartjsComponent implements OnInit {
                 }
                 this.wind[i] = this.wind[i] * 1.94384;
             }
-            console.log('wind', this.wind);
+            // console.log('wind', this.wind);
 
             let hujan = [];
             let rainCheck = res.valueOf();
@@ -115,18 +140,18 @@ export class ChartjsComponent implements OnInit {
                 try {
                     pls = moreCheck.rain['3h'];
                 } catch {
-                    console.log('no rain');
+                    // console.log('no rain');
                     hujan.push('0');
                 }
                 if (typeof pls === 'undefined') {
-                    console.log('rain check failed', pls);
+                    // console.log('rain check failed', pls);
                     hujan.push('0');
                 } else {
-                    console.log('rain check', pls);
+                    // console.log('rain check', pls);
                     hujan.push(pls);
                 } //  hujan[i] = pls;
             }
-            console.log(hujan);
+            // console.log(hujan);
             //this.rain = res['list'].map(res => res.rain['3h']);
 
             let alldates = res['list'].map(res => res.dt);
@@ -204,8 +229,8 @@ export class ChartjsComponent implements OnInit {
     }
 
     search() {
-        console.log(this.model.id);
-        console.log(this.model.name);
+        // console.log(this.model.id);
+        // console.log(this.model.name);
         this.setID(this.model.id);
 
         this.forecastGraph();
@@ -214,7 +239,7 @@ export class ChartjsComponent implements OnInit {
     }
     setID(input: number) {
         this.id = input;
-        console.log(this.id);
+        // console.log(this.id);
         this.currentSingapura();
         this.singapura();
     }
@@ -235,6 +260,21 @@ export class ChartjsComponent implements OnInit {
         return this._http.get(url).map(result => result);
     }
 
+    public getAll(): Promise<Object> {
+        return this._http.get(this.apiHost)
+            .toPromise()
+            .then(this.extractData).catch((err) => {
+                console.log(err);
+
+            });
+
+    }
+    private extractData(res: Response) {
+        console.log(res);
+        let body = res.json();
+        return body || {};
+
+    }
 
 }
 
