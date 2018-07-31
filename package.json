@@ -18,7 +18,7 @@
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
     "start": "ng serve",
-      "postinstall":"ng build --aot --prod",
+    "postinstall": "ng build --aot --prod",
     "build": "npm install && ng build --prod",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",
@@ -34,21 +34,20 @@
     "prepush": "npm run lint:ci",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s"
   },
-    "engines": {
-        "npm": "6.1.0"
-
-    },
+  "engines": {
+    "npm": "6.1.0"
+  },
   "dependencies": {
-     "@angular/cli": "6.0.0",
-    "@angular/compiler-cli": "6.0.0",
-    "@angular/language-service": "6.0.0",
     "@agm/core": "1.0.0-beta.2",
     "@angular/animations": "6.0.0",
+    "@angular/cli": "6.0.0",
     "@angular/common": "6.0.0",
     "@angular/compiler": "6.0.0",
+    "@angular/compiler-cli": "6.0.0",
     "@angular/core": "6.0.0",
     "@angular/forms": "6.0.0",
     "@angular/http": "6.0.0",
+    "@angular/language-service": "6.0.0",
     "@angular/platform-browser": "6.0.0",
     "@angular/platform-browser-dynamic": "6.0.0",
     "@angular/router": "6.0.0",
@@ -66,7 +65,9 @@
     "ckeditor": "4.7.3",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.1",
+    "cors": "^2.8.4",
     "echarts": "^4.0.2",
+    "express": "^4.16.3",
     "font-awesome": "4.7.0",
     "intl": "1.2.5",
     "ionicons": "2.0.1",
@@ -78,6 +79,7 @@
     "ngx-echarts": "2.0.1",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",
+    "path": "^0.12.7",
     "roboto-fontface": "0.8.0",
     "rxjs": "^6.1.0",
     "rxjs-compat": "^6.1.0",
