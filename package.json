@@ -35,6 +35,7 @@
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s"
   },
   "engines": {
+ "node": "9.8.0",
     "npm": "6.1.0"
   },
   "dependencies": {
